@@ -1,0 +1,110 @@
+
+
+
+<!-- // This is the ball values -->
+<div id="ball" style="
+    width: 100px;
+    height: 100px;
+    background-color: blue;
+    border-radius: 50%;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: 1;
+    "></div>
+
+    <script>
+
+
+      // New Stuff
+      // random color 
+      var r = Math.floor(255*(Math.random()));
+      var g = Math.floor(255*(Math.random()));
+      var b = Math.floor(255*(Math.random()));        
+      var color = 'rgb(' + r + ', ' + g + ', ' + b + ')';
+
+      var colorRandom = function(div){
+
+      var counter = 0;
+      var limit = 1;
+
+      var timerColor = function(div, x, y){
+          if(counter >= limit) return;
+          counter += 1;
+
+          setTimeout(function(){
+              // random color
+              var r = Math.floor(255*(Math.random()));
+              var g = Math.floor(255*(Math.random()));
+              var b = Math.floor(255*(Math.random()));        
+              var color = 'rgb(' + r + ', ' + g + ', ' + b + ')';
+              div.style.background = color; 
+              timerColor(div);
+          },0);
+      }
+      timerColor(div);
+      }
+
+      // End New Stuff
+
+      // Declaring variables
+      var positionX = 0;
+      var positionY = 0;
+      var velocityX = 10;
+      var velocityY = 8;
+      var ball = document.getElementById("ball");
+      var reverseX = true;
+      var reverseY = true
+
+      // Function Starts
+      function move() {
+        
+        // Min and Max values of edges
+        var maxX = 1350;
+        var minX = 0;
+        var maxY = 700;
+        var minY = 0;
+
+        // Updating the position Left 
+        if (reverseX)
+        {
+          positionX += velocityX;
+          ball.style.left = `${positionX}px`;
+        }
+        else
+        {
+          positionX -= velocityX;
+          ball.style.left = `${positionX}px`;
+        }
+
+        // Updating the position Top
+        if (reverseY) 
+        {
+          positionY += velocityY;
+          ball.style.top = `${positionY}px`;
+        }
+        else
+        {
+          positionY -= velocityY;
+          ball.style.top = `${ positionY}px`;
+        }
+
+        // Left Reverse conditional
+        if (positionX > maxX || positionX === 0) 
+        {
+          reverseX = !reverseX;
+          ball.style.backgroundColor = colorRandom(ball);
+        }
+
+        // Top reverse conditional
+        if (positionY > maxY || positionY === 0) 
+        {
+          reverseY = !reverseY;
+        }
+
+      }
+      
+      // Interval
+      setInterval(move, 10)
+
+    </script>
